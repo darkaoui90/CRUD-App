@@ -12,27 +12,47 @@
                     <p class="text-muted m-0">Add a new note to your collection</p>
                 </div>
             </div>
+@session('sucsess ')
+<div>
+<div class="alert alert-success alert-dismissible fade show " role="alert">
+   <strong>Success!</strong> {{ $value }}
+   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"> </button>
 
+
+
+</div>
+
+@endsession
             <div class="card">
                 <div class="card-body p-4">
-                    <form>
+                    <form  action="{{route('notes.store')}}" method="POST">
+                        @csrf
                         <div class="mb-4">
                             <label for="title" class="form-label">Title</label>
                             <input
                                 type="text"
+                                name="title"
                                 id="title"
-                                class="form-control"
+                                class="form-control @error('title') is-invalid @enderror"
+                                value = "{{ old('title') }}"
                                 placeholder="Enter a descriptive title"
                                 autofocus>
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
     					</div>
 
                         <div class="mb-4">
                             <label for="content" class="form-label">Content</label>
                             <textarea
                                 id="content"
-                                class="form-control"
+                                name="content"  
+                                class="form-control @error('content') is-invalid @enderror"
                                 rows="8"
-                                placeholder="Write your note content here..."></textarea>
+                                placeholder="Write your note content here...">{{ old('content') }}</textarea>
+                            @error('content')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
 					    <div class="d-flex gap-2">

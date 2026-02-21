@@ -13,7 +13,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        return view('notes.index');
     }
 
     /**
@@ -29,7 +29,8 @@ class NoteController extends Controller
      */
     public function store(StoreNoteRequest $request)
     {
-        //
+        Note::create($request->validated());
+        return redirect()->back()->with('sucsses' , 'noted created sucssesfully ');
     }
 
     /**
